@@ -1,0 +1,24 @@
+name: Publish Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      extension:
+        description: 'Extension name (ballerina | ballerina-integrator | wso2-platform)'
+        required: true
+        default: 'ballerina'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate publishing
+        run: echo "Publishing ${{ github.event.inputs.extension }} extension"
+
+      - name: Notify downstream repo
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.DEVANT_EDITOR_TOKEN }}" \
+            https://api.github.com/repos/Org2/devant-editor-sim/dispatches \
+            -d "{\"event_type\":\"extension_published\",\"client_payload\":{\"extension\":\"${{ github.event.inputs.extension }}\"}}"
