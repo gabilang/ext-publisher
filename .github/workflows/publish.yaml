@@ -20,5 +20,5 @@ jobs:
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.DEVANT_EDITOR_TOKEN }}" \
-            https://api.github.com/repos/Org2/devant-editor-sim/dispatches \
+            https://api.github.com/repos/kplntest/image-builder/dispatches \
             -d "{\"event_type\":\"extension_published\",\"client_payload\":{\"extension\":\"${{ github.event.inputs.extension }}\"}}"
